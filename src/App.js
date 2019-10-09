@@ -5,6 +5,7 @@ import createRouter from './routes';
 
 import Header from './components/Header';
 import Background from './components/Background';
+import './config/reactotron';
 
 export default function App() {
   const signed = useSelector(state => state.auth.signed);

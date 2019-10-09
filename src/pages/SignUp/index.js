@@ -19,7 +19,6 @@ import logo from '../../assets/logo.png';
 
 export default function SignUp({ navigation }) {
   const [fullname, setFullname] = useState('');
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -28,7 +27,7 @@ export default function SignUp({ navigation }) {
     setLoading(true);
 
     try {
-      await api.post('/users', { fullname, username, email, password });
+      await api.post('/users', { fullname, email, password });
 
       Alert.alert('Conta criada com sucesso!');
 
@@ -39,7 +38,7 @@ export default function SignUp({ navigation }) {
       setLoading(false);
 
       Alert.alert(
-        'Ocorreu um erro enquanto a conta era criada. Tente novamente.'
+        'Ocorreu um erro enquanto a conta era criada. Tente novamente.',
       );
     }
   }
@@ -50,16 +49,10 @@ export default function SignUp({ navigation }) {
         <Image source={logo} />
         <Form>
           <TextInput
-            placeholder="Digite seu nome"
+            placeholder="Nome completo"
             autoCapitalize="words"
             onChangeText={setFullname}
             value={fullname}
-          />
-          <TextInput
-            placeholder="Digite seu usuário"
-            autoCapitalize="none"
-            onChangeText={setUsername}
-            value={username}
           />
           <TextInput
             placeholder="Digite seu e-mail"
@@ -69,7 +62,7 @@ export default function SignUp({ navigation }) {
             value={email}
           />
           <TextInput
-            placeholder="Digite sua senha"
+            placeholder="Sua senha secreta"
             autoCapitalize="none"
             secureTextEntry
             onChangeText={setPassword}
@@ -79,8 +72,8 @@ export default function SignUp({ navigation }) {
             {loading ? (
               <ActivityIndicator size="small" color="#fff" />
             ) : (
-              <SubmitButtonText>Criar conta</SubmitButtonText>
-            )}
+                <SubmitButtonText>Criar conta</SubmitButtonText>
+              )}
           </SubmitButton>
         </Form>
         <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>

@@ -22,7 +22,6 @@ export default function Profile() {
   const dispatch = useDispatch();
   const profile = useSelector(state => state.user.profile);
   const [fullname, setFullname] = useState('');
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [oldPassword, setOldPassword] = useState('');
   const [password, setPassword] = useState('');
@@ -31,7 +30,6 @@ export default function Profile() {
   async function updateProfile() {
     const payload = {
       fullname,
-      username,
       email,
       oldPassword,
       password,
@@ -40,7 +38,6 @@ export default function Profile() {
 
     const schema = Yup.object().shape({
       fullname: Yup.string(),
-      username: Yup.string(),
       email: Yup.string().email(),
       oldPassword: Yup.string().min(6),
       password: Yup.string()
@@ -56,7 +53,7 @@ export default function Profile() {
     });
 
     if (!(await schema.isValid(payload))) {
-      Alert.alert('Os dados passados estão inválidos.');
+      Alert.alert('Dados inválidos.');
     } else {
       dispatch(updateRequest(payload));
 
@@ -72,9 +69,8 @@ export default function Profile() {
 
   useEffect(() => {
     setFullname(profile.fullname);
-    setUsername(profile.username);
     setEmail(profile.email);
-  }, [profile.email, profile.fullname, profile.username]);
+  }, [profile.email, profile.fullname]);
 
   return (
     <Container>
@@ -84,12 +80,6 @@ export default function Profile() {
           autoCapitalize="words"
           onChangeText={setFullname}
           value={fullname}
-        />
-        <TextInput
-          placeholder="Digite seu usuário"
-          autoCapitalize="none"
-          onChangeText={setUsername}
-          value={username}
         />
         <TextInput
           placeholder="Digite seu e-mail"

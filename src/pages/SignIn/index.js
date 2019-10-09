@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { ActivityIndicator, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, TouchableOpacity, Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { signInRequest } from '../../store/modules/auth/actions';
@@ -17,10 +17,13 @@ import {
 } from './styles';
 
 import logo from '../../assets/logo.png';
+import '../../config/reactotron';
 
 export default function SignIn({ navigation }) {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.auth.loading);
+
+  console.tron.log("Passei aqui again");
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -44,7 +47,7 @@ export default function SignIn({ navigation }) {
             value={email}
           />
           <TextInput
-            placeholder="Digite sua senha"
+            placeholder="Sua senha secreta"
             autoCapitalize="none"
             secureTextEntry
             onChangeText={setPassword}
@@ -54,8 +57,8 @@ export default function SignIn({ navigation }) {
             {loading ? (
               <ActivityIndicator size="small" color="#fff" />
             ) : (
-              <SubmitButtonText>Entrar</SubmitButtonText>
-            )}
+                <SubmitButtonText>Entrar</SubmitButtonText>
+              )}
           </SubmitButton>
         </Form>
         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
